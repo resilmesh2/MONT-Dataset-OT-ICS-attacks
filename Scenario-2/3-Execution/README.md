@@ -1,11 +1,11 @@
-# **Initial Access:**
+# **Execution:**
 
 \[ T0819 ] <https://attack.mitre.org/techniques/T0819/> 
 
 
 ## Objective:
 
-The goal of this step is for the attacker to gain initial access to the victim's network by exploiting a vulnerability in an application or service that is exposed to the internet.
+After discovering the log4shell vulnerability and its http-header, the goal of this step is for the attacker to gain initial access to the victim's network by exploiting a vulnerability in an application or service that is exposed to the internet.
 
 
 ## MITRE Technique: T0819 - Exploit Public-Facing Application
