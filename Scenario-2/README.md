@@ -31,7 +31,10 @@ The Log4Shell vulnerability affects the Apache Log4j 2 library, which is widely 
 1. **Pull and Run the Docker Container** Execute the following command to run the vulnerable application with a volume connected to `/` of the host machine:
 
 ```
-# super user privilegessudo su# start Docker container with the vulnerable applicationdocker run --name vulnerable-app --network host -v /:/root/ ghcr.io/christophetd/log4shell-vulnerable-app\@sha256:6f88430688108e512f7405ac3c73d47f5c370780b94182854ea2cddc6bd59929
+# super user privileges
+sudo su
+# start Docker container with the vulnerable application
+docker run --name vulnerable-app --network host -v /:/root/ ghcr.io/christophetd/log4shell-vulnerable-app\@sha256:6f88430688108e512f7405ac3c73d47f5c370780b94182854ea2cddc6bd59929
 ```
 
 **Explanation**:
