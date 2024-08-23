@@ -14,7 +14,9 @@ To set up the network environment, first you should change the INTERFACE variabl
 Then run:
 ```
 # creating vlans for network1 and network2
-sudo ./create\_vlans.sh# setting up docker environmentssudo docker compose up |
+sudo ./create\_vlans.sh
+# setting up docker environments
+sudo docker compose up
 ```
 
 ### **M1 - CVE-2021-44228 (Log4Shell)**
