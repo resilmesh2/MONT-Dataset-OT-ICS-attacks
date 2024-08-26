@@ -4,7 +4,7 @@
 
 The attacker uses a commonly used port (MODBUS/TCP:502) to bypass firewalls and detection systems, blending in with normal network activity. (MODBUS or HTTP(S), OPC, RDP, telnet,...) \[T0885 - <https://attack.mitre.org/techniques/T0885/> ]
 
-********The attacker uses the **MODBUS/TCP** protocol, which typically operates on port **502**, to establish Command and Control (C2) communication between the compromised machines. By utilizing this widely-used industrial protocol, the attacker avoids raising suspicion, as MODBUS traffic is considered normal within many industrial control system (ICS) environments.
+The attacker uses the **MODBUS/TCP** protocol, which typically operates on port **502**, to establish Command and Control between the compromised machines. By utilizing this widely-used industrial protocol, the attacker avoids raising suspicion, as MODBUS traffic is considered normal within many industrial control system (ICS) environments.
 
 1. **Installing Modpoll on Machine M2 (Attack Machine):**
 
