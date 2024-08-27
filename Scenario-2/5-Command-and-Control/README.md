@@ -30,7 +30,9 @@ export PATH=modpoll/x86\_64-linux-gnu:$PATH
 - The attacker executes **Modpoll** to query the state of the system controllers on machine M3 using the MODBUS protocol over TCP (Port 502):
 
 ```
-# step 1 checking machine/system controller statesmodpoll -m tcp -r 1 -c 4 -t 0 192.168.52.6 # the -c is the number of outputs you want to get, the response of this command can take some seconds to appear |
+# step 1 checking machine/system controller states
+# response can take some minutes
+modpoll -m tcp -r 1 -c 4 -t 0 192.168.52.6 # the -c is the number of outputs you want to get, the response of this command can take some seconds to appear |
 
 ```
 
