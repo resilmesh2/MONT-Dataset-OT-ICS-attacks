@@ -2,7 +2,7 @@
 
 In order to create the Ransomware Attack on OT/ICS Network, the first thing that we are going to do is set up the environment in which the attack will occur. 
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXd18qRUC-DXJsdoXFjnPyyEjAnVn3k8QZVaU38sJqFaN4HW1uewLeUCTScyX5eT4s1JFU1Z2LX23zarHqDAlwDzW-TP-Xn_xkfwmwqTb4xbDf_ZmNMaa6Hll5y7bVAsv2DQY35yf4MIfjdIqmU8CpJecJDm?key=ZVE4yllmhIbKOidz4k1V_g)
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfZeXnsPO-eepvSEfmZoJWTHtoupgzmZpGrs6Ovt6iCZnC8Xa0Qqr1SRz6Hr67Qzj0VCsouUTkICOAPfRi9tmVFQ47-A_YhsJc1YHhBzA5UUtcWmYR_lCztiAgC6oc9hb9H0OTcTExPTKXx_f1ICfp_OzrN?key=ZVE4yllmhIbKOidz4k1V_g)
 
 **Img 1**: Scenario network topology.
 
@@ -15,9 +15,58 @@ Then run:
 ```
 # creating vlans for network1 and network2
 sudo ./create\_vlans.sh
-# setting up docker environments
+# setting up docker environment
 sudo docker compose up
 ```
+
+
+### **Once set up you will have the following services:**
+
+- Vulnerable Web Aplication at \<IP>:8081  # Whitelabel Error Page
+
+* OpenPLC Dashboard at \<IP>:8080 # username:password = openplc:openplc
+
+* Scada Web Aplication at \<IP>:9090/ScadaBR # username:password = admin:admin
+
+* TomcatManager at \<IP>:9090/Manager # username:password = admin:admin
+
+
+### **OpenPLC:**
+
+For the OpenPLC, you will have to upload the system program to the platform. So enter at openplc:openplc and:
+
+**Programs > Browse >** Select the **On\_off.st** file > Give it a name > **Upload**
+
+Then go to the Dashboard and Run it.
+
+**Go to Dashboard > Start PLC (Left corner of Dashboard)**
+
+Now you should be able to see it in the **Monitoring tab,** be aware that it can take some seconds to be visible on the tab.![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcMEMYa-mq4n05ATBqIZrDSxezq6i6tzEz7hRoz-tzCq4dA-jKHEmoNww1tqDhovrpFS4xqAYodvrjjdmY7JUan7DLr6RC4vCcFyO9hkvFAo5BM_A6wAJtloeOP_Ck7UbnFnKVffXrwM096zHneL8O4CjGO?key=ZVE4yllmhIbKOidz4k1V_g)
+
+**Img 2:** Monitoring of On\_off.st program running.
+
+**ScadaBR:**
+
+Once in ScadaBR, at the “Graphical Views” tab, a warning sign might be appearing in the icons of the Graphical View:
+
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfSW6vnR3jUlgsj4usQJcpkDJ41nkKcWto_1wsGit0KpzZ27XbATvC8lJP2004L3f94zP1T18FTjW-q_THyHYF0Y7UaaHv5EBNfpsv0ZNe997TDCh8ThRrRT2MeNYJCyTzNV9RnUp5uxVPQiaukMhcbizvi?key=ZVE4yllmhIbKOidz4k1V_g)
+
+**Img 3:** Warning sign in Graphical View.
+
+If so, the following steps must be done:
+
+Go to **Data Sources** and disable and enable the data source, this will reload the system, connecting the HMI with the PLC program.
+
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXe1C2lTl-NkwbV42Ae9q41LH3SPvjltNOkwcCganDQrtAtkAHTvY2hlep5Qb2TDh99ucInNuv6FuUceg-hswDhsqA_YqTBL-Lhfxhg8Ey4WLOd_XAHOMh9fwWI1vEyvg3B7yWRF34RkT_xGcUTjucGRhN0?key=ZVE4yllmhIbKOidz4k1V_g)
+
+**Img 4:** Data sources table, to disable and enable click in the status icon, making it red and then green again.
+
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeGN2d1ZLXYwxpBjMV3ZR03anSoBmzcELIyI0nrB5SKMEMVbxmryroN1aVjFAiHQf7kUkX5QzxDybHue5QzDCqCD4pjrIoo-dDH2wnn4fD2kdGTCJqXSJylddQI8XgflfSGkSciIFdeGIsZ5qAOTG4OGU31?key=ZVE4yllmhIbKOidz4k1V_g)
+
+**Img 5:** The Graphical View now is connected. You can interact with the system by clicking in “ON - Released” or “OFF - Released”. The result will be seen in the Graphical View and also in the OpenPLC Monitoring.
+
+For the VulnerableWeb App and the TomcatManager nothing needs to be done.
+
 
 ### **M1 - CVE-2021-44228 (Log4Shell)**
 
@@ -36,9 +85,9 @@ The Log4Shell vulnerability affects the Apache Log4j 2 library, which is widely 
 
 Available code at: <https://github.com/christophetd/log4shell-vulnerable-app.git> 
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcFRRQKAfeAFXAXRQhQdhwGr6ODcXhOT09Zyvvw0Vh90JR9AO1XxnsQNxinN5I-y8vNRRX2X9HXlBP3pjjEeR1xnZREl_WrPIJbefRvcICNvXTFYODN9Pey_UGvKcrkalWHBtkhrUqIr5ytXb6znYd4RgbP?key=ZVE4yllmhIbKOidz4k1V_g)
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfvdGhPV3kqMM_DToL7uCWKchUZ5xlOuEbjC7x-5WyIuAvHrWEhvYNcMYXeGTaiycXN8P4qccazqQexuCgVsTvTdQNve04lECISSImc81rvhAbxdBSkzA01hif3O5gb0glv6CmiVk95NHhfY9LQe1_Q1zrR?key=ZVE4yllmhIbKOidz4k1V_g)
 
-**Img 2**: Vulnerable application set up.
+**Img 6**: Vulnerable application set up.
 
 M1 is in the same network as M2.
 
@@ -69,13 +118,13 @@ The attacker crafts a malicious WAR file, typically containing a script or a bac
 
 Once the WAR file is uploaded and deployed, it is accessible as a web application on the server. The attacker can then access the malicious script (e.g., `http://target-server:8080/shell/`) via a web browser or an HTTP request. This script allows the attacker to execute arbitrary commands on the server with the privileges of the Tomcat process.
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfvcFclzFT9sLv9eq0qYfhs_rXAMFTPInwJIRWCtzJeb7TomFkGN63NlaGlwmnrluXWp4PbOdRcQLUA9_WfK0EM4Kci1EVoXM2HHjDyWtn6wlX0_cbSeyi561NDl0kLzomEuajN_b21EE6gpqsk-EKvIKob?key=ZVE4yllmhIbKOidz4k1V_g)
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXdxXHCPKU6Qgei0zYi5Kt5qvIL9TVNK5m1sERbgBzpUhgmzbO-giZWlzEXEH4TSFXuwh_QNKTdy186qwle5V-992PP-yTP4jaTHz1zkL3OlSiZin4tPxQFGvlB1FvnQ0xdv8z3GMm28eIkM9pCionG366vu?key=ZVE4yllmhIbKOidz4k1V_g)
 
-**Img 3**: Tomcat manager page.
+**Img 7**: Tomcat manager page.
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeehwu5kIPtDXfTJY7wle59CoGmAkbvDjCj8D_nVDKWqTCVvQKUNp5kB_rBVg0Ciq84vzlKTkcEwB6yk2Ch5xc0PVBom44LknSnOE-ERD1sBA47CVX5Y_c-6BOh-HYmrxpSAvC2rJeCL2yduwcwCpLv8tw?key=ZVE4yllmhIbKOidz4k1V_g)
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXdWmasRN9D0yZwuO040pp8hJ3AxxSRoBXyOTPffCve1HjH_6lIvQOz5Rzp8GIpnC4jq37q59g-FSl8J9wRO_sSC_I79iR16g5SIcKDgtP3xZma9opzLX_VxZPveIgXI8R6KWR9t5eRFqHx6VAwRLlznSIk?key=ZVE4yllmhIbKOidz4k1V_g)
 
-**Img 4**: ScadaBR Human Machine Interface with the system installed in M3.
+**Img 8**: ScadaBR Human Machine Interface with the system installed in M3.
 
 
 ### **M3 - OpenPLC simulation Programmable Logic Controller** 
@@ -84,10 +133,10 @@ Once the WAR file is uploaded and deployed, it is accessible as a web applicatio
 
 In this setup, OpenPLC (environment and editor) was used to simulate a real PLC that controls a simple process: two buttons (ON and OFF) that toggle an LED. This simulation is controlled via the MODBUS protocol, commonly used for communication in industrial environments. By using MODBUS protocol, OpenPLC can receive commands to switch the LED on or off, effectively mimicking a real-world PLC operation.
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXd3j2fmj7u43gn895rYyUBpe2kDnTpZ2ORw8erTaxvaOlkPR3sCBFyad6pAYknkK4p9EvwkduMAf8VmdVUcyvTLFaAIs_59X2N4UL8NqSt6okMjXjGI0l_5B3SKu0PFZjRRxap-CzE4wm9vBn0SDncjyzk?key=ZVE4yllmhIbKOidz4k1V_g)
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcbsT2koVdQ-Gl3kbpQvuGPCXtCa37hTSC0-qE8jTSBWRcijW7GmXOzXv-b-8Vg6Op0v4KMibtJhh7JlvVOfbPEEdMkKCaMv-LO3SHXXpYBMQMD6tSkBFiicZhDirCKBSVqeGfIj9JUBRu3AIeFUw8zt7s?key=ZVE4yllmhIbKOidz4k1V_g)
 
-**Img 5**: OpenPLC Environment - monitoring of the system.
+**Img 9**: OpenPLC Environment - monitoring of the system.
 
-![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcwa9WpWQkywAYlePsk9dHYcuoMlIiigEnyMLmqN-TzTEhURpsNP_uapIGKNMY--__CabOXYHJsCaU20hOrdV-db77V0qxotzKa7ATx0quswnwEvk3GBNvYpTp_1NOkAu29OMMkWljrZ9C90_yV7GURteo?key=ZVE4yllmhIbKOidz4k1V_g)
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeV2FW9bVmZLa2JXCsPUkMHJSMkLi6jk-8aWAB8h8qjwd5lYK4vdN2QkyryExyhwb8lA1mg9ntBAhtxmOMRhOwLNhE1nv9QFtlOPTJF2HTFWJxhwK3-0Dngm3dHqfYRn7O0Y4kk2J7Ddv91cq2PF6xb5Yc?key=ZVE4yllmhIbKOidz4k1V_g)
 
-**Img 6**: System created using openPLC editor.
+**Img 10**: System created using openPLC editor.
