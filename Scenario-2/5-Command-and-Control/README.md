@@ -20,7 +20,9 @@ The attacker uses the **MODBUS/TCP** protocol, which typically operates on port 
 ```
 # step 1 install modpoll in M2
 
-wget https://www.modbusdriver.com/downloads/modpoll.zip
+wget https://www.modbusdriver.com/downloads/modpoll.tgz
+
+tar xzf modpoll.tgz
 
 export PATH=modpoll/x86_64-linux-gnu:$PATH
 
