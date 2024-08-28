@@ -52,7 +52,7 @@ nmap 192.168.51.2/24
 sudo msfconsole
 
 # step 2
-use_ scanner/http/tomcat\_mgr\_login  
+use scanner/http/tomcat\_mgr\_login  
 
 # step 3
 setg RHOSTS \<target-ip>  `# 10.208.89.15 or 192.168.51.5 if in M1
