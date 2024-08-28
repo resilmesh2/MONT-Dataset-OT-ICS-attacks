@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/gjodar
+
+modpoll -m tcp -0 -r 1 -t 0 -c 3 192.168.51.5 0 1 0
+modpoll -m tcp -0 -r 1 -t 0 -c 3 192.168.51.5 0 0 0
