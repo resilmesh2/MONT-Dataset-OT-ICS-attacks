@@ -1,6 +1,6 @@
 # Setting Up Scenario - Operational Disruption in OT/ICS Network
 
-In order to create the Ransomware Attack on OT/ICS Network, the first thing that we are going to do is set up the environment in which the attack will occur. 
+In order to create the Operational Disruption in OT/ICS Network, the first thing that we are going to do is set up the environment in which the attack will occur. 
 
 ![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXfZeXnsPO-eepvSEfmZoJWTHtoupgzmZpGrs6Ovt6iCZnC8Xa0Qqr1SRz6Hr67Qzj0VCsouUTkICOAPfRi9tmVFQ47-A_YhsJc1YHhBzA5UUtcWmYR_lCztiAgC6oc9hb9H0OTcTExPTKXx_f1ICfp_OzrN?key=ZVE4yllmhIbKOidz4k1V_g)
 
