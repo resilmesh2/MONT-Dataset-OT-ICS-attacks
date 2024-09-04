@@ -1,0 +1,1 @@
+The “firmware update” is mailed to the responsible person, whose contact information was gained through phishing, using the name of the actual manufacturer as the sender. The attacker gains access to the OT environment, as the “firmware update” USB is inserted into the device. [T1091]
