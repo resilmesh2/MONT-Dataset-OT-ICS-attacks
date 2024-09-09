@@ -1,0 +1,79 @@
+version: '3.9'
+
+services:
+  # ScadaBR service
+  scadabr:
+    image: montimage/resilmesh:vulnerable_scadabr
+    container_name: scadabr
+    depends_on:
+      - openplc  # Dependência do serviço OpenPLC
+    networks:
+      bridge_network:
+      network1:
+        ipv4_address: 192.168.51.5
+      network2:
+        ipv4_address: 192.168.52.5
+    ports:
+      - "9090:9090"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2048M"
+    entrypoint: |
+      sh -c "
+      while ! nc -z 192.168.52.6 8080; do
+        echo 'Waiting for OpenPLC to be ready...';
+        sleep 5;
+      done;
+      sudo /opt/tomcat6/apache-tomcat-6.0.53/bin/startup.sh && sleep infinity
+      "
+
+  # OpenPLC service
+  openplc:
+    image: montimage/resilmesh:openplc
+    container_name: openplc
+    networks:
+      bridge_network:
+      network2:
+        ipv4_address: 192.168.52.6
+    ports:
+      - "8080:8080"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /sbin/init
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2048M"
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    entrypoint: |
+      sh -c "./start_openplc.sh"
+
+networks:
+  bridge_network:
+    driver: bridge
+
+  network1:
+    driver: macvlan
+    driver_opts:
+      parent: ${INTERFACE}.10
+    ipam:
+      config:
+        - subnet: 192.168.51.0/24
+          gateway: 192.168.51.1
+
+  network2:
+    driver: macvlan
+    driver_opts:
+      parent: ${INTERFACE}.20
+    ipam:
+      config:
+        - subnet: 192.168.52.0/24
+          gateway: 192.168.52.1
