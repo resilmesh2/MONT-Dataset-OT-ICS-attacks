@@ -1,6 +1,7 @@
 version: '3.9'
 
 services:
+
   # ScadaBR service
   scadabr:
     image: montimage/resilmesh:vulnerable_scadabr
@@ -9,8 +10,7 @@ services:
       - openplc  # Dependência do serviço OpenPLC
     networks:
       bridge_network:
-      network1:
-        ipv4_address: 192.168.51.5
+  
       network2:
         ipv4_address: 192.168.52.5
     ports:
@@ -60,14 +60,7 @@ networks:
   bridge_network:
     driver: bridge
 
-  network1:
-    driver: macvlan
-    driver_opts:
-      parent: ${INTERFACE}.10
-    ipam:
-      config:
-        - subnet: 192.168.51.0/24
-          gateway: 192.168.51.1
+  
 
   network2:
     driver: macvlan
