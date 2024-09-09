@@ -1,16 +1,16 @@
 version: '3.9'
 
 services:
-
-  # ScadaBR service
+  # M2 service - ScadaBR
   scadabr:
     image: montimage/resilmesh:vulnerable_scadabr
     container_name: scadabr
     depends_on:
-      - openplc  # Dependência do serviço OpenPLC
+      - openplc
     networks:
       bridge_network:
-  
+      network1:
+        ipv4_address: 192.168.51.5
       network2:
         ipv4_address: 192.168.52.5
     ports:
@@ -32,7 +32,7 @@ services:
       sudo /opt/tomcat6/apache-tomcat-6.0.53/bin/startup.sh && sleep infinity
       "
 
-  # OpenPLC service
+  # M3 service - OpenPLC
   openplc:
     image: montimage/resilmesh:openplc
     container_name: openplc
@@ -56,11 +56,47 @@ services:
     entrypoint: |
       sh -c "./start_openplc.sh"
 
+  # M1 service - Attacker's machine with Social-Engineer Toolkit
+  M1:
+    image: kalilinux/kali-rolling
+    container_name: attacker-M1
+    networks:
+      bridge_network:
+      network1:
+        ipv4_address: 192.168.51.10
+    ports:
+      - "8082:8080"  # Port for SET interface or other tools
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2048M"
+    entrypoint: |
+      sh -c "
+      apt-get update && apt-get install -y git python3-pip
+      git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set
+      cd /opt/set
+      pip3 install -r requirements.txt
+      python3 setup.py install
+      echo 'SET installed. Use it for phishing scenarios.'
+      sleep infinity
+      "
+
 networks:
   bridge_network:
     driver: bridge
 
-  
+  network1:
+    driver: macvlan
+    driver_opts:
+      parent: ${INTERFACE}.10
+    ipam:
+      config:
+        - subnet: 192.168.51.0/24
+          gateway: 192.168.51.1
 
   network2:
     driver: macvlan
