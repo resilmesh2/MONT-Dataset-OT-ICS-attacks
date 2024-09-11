@@ -1,7 +1,5 @@
 # Initial Access
 
-## Scenario Overview
-
 In this phase, the attacker uses the malicious USB device created in the **Resource Development** phase to gain initial access to the OT environment. The attacker mails the USB thumb drive to the individual responsible for the OT system, posing as the legitimate manufacturer.
 
 - **MITRE ATT&CK Technique**: [T1091 - Initial Access: Replication Through Removable Media](https://attack.mitre.org/techniques/T1091/)
