@@ -1,6 +1,4 @@
-# OT Firmware Update Attack Scenario - Step 2: Resource Development
-
-## Scenario Overview
+# Resource Development
 
 In this phase, the attacker develops a malicious program to be delivered via a USB thumb drive. The USB will be disguised as a legitimate firmware update for the target OT system, obtained through the information gathered during the **Reconnaissance** phase.
 
