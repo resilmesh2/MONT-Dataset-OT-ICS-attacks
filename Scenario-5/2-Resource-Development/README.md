@@ -4,7 +4,7 @@
 
 In this phase, the attacker develops a malicious program to be delivered via a USB thumb drive. The USB will be disguised as a legitimate firmware update for the target OT system, obtained through the information gathered during the **Reconnaissance** phase.
 
-- **ATT&CK Technique**: [T1587.001 - Develop Capabilities: Malware](https://attack.mitre.org/techniques/T1587/001/)
+- **MITRE ATT&CK Technique**: [T1587.001 - Develop Capabilities: Malware](https://attack.mitre.org/techniques/T1587/001/)
 
 ## Objective
 
