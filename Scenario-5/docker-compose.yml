@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  # M1 - The attacker
+  # M1 service - Attacker with Social-Engineer Toolkit (SET) and Metasploit
   M1:
     build:
       context: .
