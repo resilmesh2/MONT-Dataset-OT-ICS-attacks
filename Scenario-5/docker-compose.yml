@@ -1,11 +1,9 @@
 version: '3.9'
 
 services:
-  # M1 service - Attacker with Social-Engineer Toolkit (SET) and Metasploit
+  # M1 service - Attacker's machine with Social-Engineer Toolkit
   m1:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: kalilinux/kali-rolling
     container_name: attacker-m1
     networks:
       bridge_network:
@@ -16,8 +14,15 @@ services:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    entrypoint: |
+      sh -c "
+      apt-get update && apt-get install -y git curl python3-pip && \
+      git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set && \
+      cd /opt/set && pip3 install -r requirements.txt && python3 setup.py install && \
+      echo 'M1: Attacker with SET ready.' && sleep infinity
+      "
 
-  # M2 - SCADA system
+  # M2 service - SCADA System (ScadaBR)
   scadabr:
     image: montimage/resilmesh:vulnerable_scadabr
     container_name: scadabr
@@ -34,11 +39,6 @@ services:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2"
-          memory: "2048M"
     entrypoint: |
       sh -c "
       while ! nc -z 192.168.52.6 8080; do
@@ -48,7 +48,7 @@ services:
       sudo /opt/tomcat6/apache-tomcat-6.0.53/bin/startup.sh && sleep infinity
       "
 
-  # M3 - OpenPLC system
+  # M3 service - OpenPLC
   openplc:
     image: montimage/resilmesh:openplc
     container_name: openplc
@@ -62,35 +62,24 @@ services:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     command: /sbin/init
-    deploy:
-      resources:
-        limits:
-          cpus: "2"
-          memory: "2048M"
     environment:
       - DEBIAN_FRONTEND=noninteractive
     entrypoint: |
       sh -c "./start_openplc.sh"
 
-  # M4 - IT Workstation responsible for OT system
+  # M4 service - IT Workstation
   m4:
     image: ubuntu:latest
-    container_name: workstation-m4
+    container_name: it-workstation-m4
     networks:
       bridge_network:
       network1:
-        ipv4_address: 192.168.51.15
+        ipv4_address: 192.168.51.2
     ports:
       - "8081:8080"
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2"
-          memory: "2048M"
-    
 
 networks:
   bridge_network:
