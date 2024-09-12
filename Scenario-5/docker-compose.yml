@@ -1,7 +1,38 @@
 version: '3.9'
 
 services:
-  # M2 service - ScadaBR
+  # M1 - The attacker
+  M1:
+    image: kalilinux/kali-rolling
+    container_name: attacker-M1
+    networks:
+      bridge_network:
+      network1:
+        ipv4_address: 192.168.51.10
+      network3:
+        ipv4_address: 192.168.53.10
+    ports:
+      - "8082:8080"  # Port for SET interface or other tools
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: "2048M"
+    entrypoint: |
+      sh -c "
+      apt-get update && apt-get install -y git python3-pip
+      git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set
+      cd /opt/set
+      pip3 install -r requirements.txt
+      python3 setup.py install
+      echo 'SET installed. Use it for phishing scenarios.'
+      sleep infinity
+      "
+
+  # M2 - SCADA system
   scadabr:
     image: montimage/resilmesh:vulnerable_scadabr
     container_name: scadabr
@@ -32,7 +63,7 @@ services:
       sudo /opt/tomcat6/apache-tomcat-6.0.53/bin/startup.sh && sleep infinity
       "
 
-  # M3 service - OpenPLC
+  # M3 - OpenPLC system
   openplc:
     image: montimage/resilmesh:openplc
     container_name: openplc
@@ -56,16 +87,18 @@ services:
     entrypoint: |
       sh -c "./start_openplc.sh"
 
-  # M1 service - Attacker's machine with Social-Engineer Toolkit
-  M1:
-    image: kalilinux/kali-rolling
-    container_name: attacker-M1
+  # M4 - IT Workstation responsible for OT system
+  M4:
+    image: ubuntu:latest
+    container_name: workstation-M4
     networks:
       bridge_network:
       network1:
-        ipv4_address: 192.168.51.10
+        ipv4_address: 192.168.51.15
+      network3:
+        ipv4_address: 192.168.53.15
     ports:
-      - "8082:8080"  # Port for SET interface or other tools
+      - "8081:8080"
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -76,12 +109,9 @@ services:
           memory: "2048M"
     entrypoint: |
       sh -c "
-      apt-get update && apt-get install -y git python3-pip
-      git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set
-      cd /opt/set
-      pip3 install -r requirements.txt
-      python3 setup.py install
-      echo 'SET installed. Use it for phishing scenarios.'
+      echo 'M4: Workstation for OT system ready.'
+      apt-get update && apt-get install -y net-tools iputils-ping mutt
+      echo 'Basic network tools and email client installed.'
       sleep infinity
       "
 
@@ -106,3 +136,12 @@ networks:
       config:
         - subnet: 192.168.52.0/24
           gateway: 192.168.52.1
+
+  network3:
+    driver: macvlan
+    driver_opts:
+      parent: ${INTERFACE}.30
+    ipam:
+      config:
+        - subnet: 192.168.53.0/24
+          gateway: 192.168.53.1
