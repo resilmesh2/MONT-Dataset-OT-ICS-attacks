@@ -24,8 +24,13 @@ The primary objectives of using phishing in the reconnaissance phase are to:
 ### 1. Start the Attacker Machine (M1)
 
 Ensure the attacker's machine (**M1**) is running and connected to the same network as the OT environment.
+```
+# Access the container
+docker exec -it attacker-M1 /bin/bash
+```
+![](https://drive.google.com/uc?export=view&id=1l7pXqzE4y-KWR-77duJ_PZMlppS-H9Hn)
 
-### 2. Install the Social-Engineer Toolkit (SET)
+### 2. Install the Social-Engineer Toolkit (SET) and Metasploit
 
 If SET is not installed on **M1**, follow these steps:
 
@@ -37,13 +42,24 @@ cd /opt/set
 pip3 install -r requirements.txt
 python3 setup.py install
 ```
+If Metasploit is not installed on **M1**, follow these steps:
+```bash
+apt-get update && apt-get install -y git curl wget python3-pip
+apt install metasploit-framework
+```
+
 ### 3. Launch SET
+
+
 
 ```bash
 #Run the Social-Engineer Toolkit:
 cd /opt/set
 sudo python3 setoolkit
+#Then pick Yes
 ```
+![](https://drive.google.com/uc?export=view&id=1sOZpeQ8Z6xW4v8F7xX8SCsBvm8Gc77LA)
+
 ### 4.Choose the Phishing Attack Vector
 
 - From the SET main menu, select 1) Social-Engineering Attacks.
