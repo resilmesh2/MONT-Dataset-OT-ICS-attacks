@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: attacker-M1
+    container_name: attacker-m1
     networks:
       bridge_network:
       network1:
@@ -75,13 +75,11 @@ services:
   # M4 - IT Workstation responsible for OT system
   M4:
     image: ubuntu:latest
-    container_name: workstation-M4
+    container_name: workstation-m4
     networks:
       bridge_network:
       network1:
         ipv4_address: 192.168.51.15
-      network3:
-        ipv4_address: 192.168.53.15
     ports:
       - "8081:8080"
     privileged: true
@@ -115,12 +113,3 @@ networks:
       config:
         - subnet: 192.168.52.0/24
           gateway: 192.168.52.1
-
-  network3:
-    driver: macvlan
-    driver_opts:
-      parent: ${INTERFACE}.30
-    ipam:
-      config:
-        - subnet: 192.168.53.0/24
-          gateway: 192.168.53.1
