@@ -19,30 +19,28 @@ if ! ip link show "$INTERFACE" > /dev/null 2>&1; then
   exit 1
 fi
 
-# Create VLAN interfaces
-sudo ip link add link "$INTERFACE" name "$INTERFACE".10 type vlan id 10
-if [ $? -ne 0 ]; then
-  echo "Failed to create VLAN 10 interface."
-  exit 1
-fi
+# Function to create a VLAN interface
+create_vlan_interface() {
+  VLAN_ID=$1
+  VLAN_INTERFACE="$INTERFACE.$VLAN_ID"
 
-sudo ip link add link "$INTERFACE" name "$INTERFACE".20 type vlan id 20
-if [ $? -ne 0 ]; then
-  echo "Failed to create VLAN 20 interface."
-  exit 1
-fi
+  # Create the VLAN interface
+  sudo ip link add link "$INTERFACE" name "$VLAN_INTERFACE" type vlan id "$VLAN_ID"
+  if [ $? -ne 0 ]; then
+    echo "Failed to create VLAN $VLAN_ID interface."
+    exit 1
+  fi
 
-# Bring up the VLAN interfaces
-sudo ip link set dev "$INTERFACE".10 up
-if [ $? -ne 0 ]; then
-  echo "Failed to bring up VLAN 10 interface."
-  exit 1
-fi
+  # Bring up the VLAN interface
+  sudo ip link set dev "$VLAN_INTERFACE" up
+  if [ $? -ne 0 ]; then
+    echo "Failed to bring up VLAN $VLAN_ID interface."
+    exit 1
+  fi
+  echo "VLAN interface $VLAN_INTERFACE has been created and set up."
+}
 
-sudo ip link set dev "$INTERFACE".20 up
-if [ $? -ne 0 ]; then
-  echo "Failed to bring up VLAN 20 interface."
-  exit 1
-fi
-
-echo "VLAN interfaces $INTERFACE.10 and $INTERFACE.20 have been created and set up."
+# Create VLAN 10, 20, and 30 interfaces
+create_vlan_interface 10
+create_vlan_interface 20
+create_vlan_interface 30
