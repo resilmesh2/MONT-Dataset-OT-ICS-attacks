@@ -3,33 +3,19 @@ version: '3.9'
 services:
   # M1 - The attacker
   M1:
-    image: kalilinux/kali-rolling
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: attacker-M1
     networks:
       bridge_network:
       network1:
         ipv4_address: 192.168.51.10
-      network3:
-        ipv4_address: 192.168.53.10
     ports:
       - "8082:8080"  # Port for SET interface or other tools
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2"
-          memory: "2048M"
-    entrypoint: |
-      sh -c "
-      apt-get update && apt-get install -y git curl \
-      && curl https://raw.githubusercontent.com/rapid7/metasploit-framework/master/scripts/msfupdate | bash \
-      && git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set \
-      && cd /opt/set && pip3 install -r requirements.txt && python3 setup.py install \
-      && echo 'M1: Attacker with SET and Metasploit ready.' \
-      && sleep infinity
-      "
 
   # M2 - SCADA system
   scadabr:
@@ -106,13 +92,7 @@ services:
         limits:
           cpus: "2"
           memory: "2048M"
-    entrypoint: |
-      sh -c "
-      echo 'M4: Workstation for OT system ready.'
-      apt-get update && apt-get install -y net-tools iputils-ping mutt
-      echo 'Basic network tools and email client installed.'
-      sleep infinity
-      "
+    
 
 networks:
   bridge_network:
