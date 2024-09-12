@@ -13,7 +13,7 @@ To set up the network environment, first you should change the INTERFACE variabl
 
 Then run:
 ```
-# creating vlans for network1 and network2
+# creating vlans for 3 network
 sudo ./create\_vlans.sh
 # setting up docker environment
 sudo docker compose up
@@ -22,11 +22,59 @@ sudo docker compose up
 
 ### **Once set up you will have the following services:**
 
-* OpenPLC Dashboard at \<IP>:8080 # username:password = openplc:openplc
+Docker Containers
 
-* Scada Web Aplication at \<IP>:9090/ScadaBR # username:password = admin:admin
+ **M1 - Attacker**
+   - **Role:** Performs reconnaissance and conducts phishing attacks to gather information.
+   - **Image:** `kalilinux/kali-rolling`
+   - **Networks:**
+     - `bridge_network`
+     - `network1` (IP: 192.168.51.10)
+   - **Ports:** 8082:8080
+   - **Description:** M1 is used by the attacker to run Social-Engineer Toolkit (SET) for phishing and other attack activities.
 
-* TomcatManager at \<IP>:9090/Manager # username:password = admin:admin
+**M2 - SCADA System (ScadaBR)**
+   - **Role:** Simulates a SCADA system in the OT environment.
+   - **Image:** `montimage/resilmesh:vulnerable_scadabr`
+   - **Networks:**
+     - `bridge_network`
+     - `network1` (IP: 192.168.51.5)
+     - `network2` (IP: 192.168.52.5)
+   - **Ports:** 9090:9090
+
+**M3 - OpenPLC**
+   - **Role:** Simulates an OpenPLC system in the OT environment.
+   - **Image:** `montimage/resilmesh:openplc`
+   - **Networks:**
+     - `bridge_network`
+     - `network2` (IP: 192.168.52.6)
+   - **Ports:** 8080:8080
+
+**M4 - IT Workstation**
+   - **Role:** Responsible for the OT system and receives phishing emails from M1.
+   - **Image:** `ubuntu:latest`
+   - **Networks:**
+     - `bridge_network`
+     - `network1` (IP: 192.168.51.2)
+   - **Ports:** 8081:8080
+
+
+## Accessing the Components
+
+1. **OpenPLC Dashboard**:
+   - URL: `http://192.168.52.6:8080`
+   - **Username**: `openplc`
+   - **Password**: `openplc`
+
+2. **Scada Web Application**:
+   - URL: `http://192.168.51.5:9090/ScadaBR`
+   - **Username**: `admin`
+   - **Password**: `admin`
+
+3. **Tomcat Manager**:
+   - URL: `http://192.168.51.5:9090/Manager`
+   - **Username**: `admin`
+   - **Password**: `admin`
 
 
 ### **OpenPLC:**
@@ -64,6 +112,3 @@ Go to **Data Sources** and disable and enable the data source, this will reload 
 **Img 5:** The Graphical View now is connected. You can interact with the system by clicking in “ON - Released” or “OFF - Released”. The result will be seen in the Graphical View and also in the OpenPLC Monitoring.
 
 For the TomcatManager nothing needs to be done.
-
-
-M1 is in the same network as M2.
