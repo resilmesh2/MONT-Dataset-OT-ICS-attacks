@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   # M1 service - Attacker with Social-Engineer Toolkit (SET) and Metasploit
-  M1:
+  m1:
     build:
       context: .
       dockerfile: Dockerfile
@@ -73,7 +73,7 @@ services:
       sh -c "./start_openplc.sh"
 
   # M4 - IT Workstation responsible for OT system
-  M4:
+  m4:
     image: ubuntu:latest
     container_name: workstation-m4
     networks:
