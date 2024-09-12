@@ -43,4 +43,4 @@ create_vlan_interface() {
 # Create VLAN 10, 20, and 30 interfaces
 create_vlan_interface 10
 create_vlan_interface 20
-create_vlan_interface 30
+# create_vlan_interface 30
