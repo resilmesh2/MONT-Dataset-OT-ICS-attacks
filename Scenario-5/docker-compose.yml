@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # M1 - The attacker
   M1:
-    image: montimage/resilmesh:kalilinux/kali-rolling
+    image: kalilinux/kali-rolling
     container_name: attacker-M1
     networks:
       bridge_network:
@@ -89,7 +89,7 @@ services:
 
   # M4 - IT Workstation responsible for OT system
   M4:
-    image: montimage/resilmesh:ubuntu:latest
+    image: ubuntu:latest
     container_name: workstation-M4
     networks:
       bridge_network:
