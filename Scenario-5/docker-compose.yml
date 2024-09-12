@@ -23,8 +23,7 @@ services:
     entrypoint: |
       sh -c "
       apt-get update && apt-get install -y git curl wget python3-pip
-      curl https://raw.githubusercontent.com/rapid7/metasploit-framework/master/scripts/msfupdate | bash
-      msfdb init
+      apt install metasploit-framework
       git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set
       cd /opt/set
       pip3 install -r requirements.txt
