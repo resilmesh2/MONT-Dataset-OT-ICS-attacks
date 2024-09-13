@@ -22,8 +22,10 @@ Using the information gathered during the **Reconnaissance** phase, the attacker
 
 To enhance the credibility of the phishing attempt, the attacker can spoof the email address or physical address of the manufacturer. For email-based phishing, the attacker could:
 
-1. Use a fake email domain that looks similar to the real manufacturer's domain (e.g., `support@manufacturer-update.com` instead of `support@manufacturer.com`).
-2. Create professional-looking communication that instructs the target to perform the firmware update using the enclosed USB device.
+- Use a fake email domain that looks similar to the real manufacturer's domain (e.g., `support@manufacturer-update.com` instead of `support@manufacturer.com`).
+   
+   **Img**
+- Create professional-looking communication that instructs the target to perform the firmware update using the enclosed USB device.
 
 ### 3. Deliver the USB Device
 
@@ -34,18 +36,25 @@ The phishing package is delivered to the target either by mail or email. The USB
 
 ### 4. The Target Inserts the USB into the OT System
 
-The responsible person, believing the USB drive or download link to be legitimate, follows the instructions and inserts the USB drive into the workstation responsible for the OT system (**M1**). This workstation has access to SCADA systems (M2) and OpenPLC systems (M3).
+The responsible person, believing the USB drive or download link to be legitimate, follows the instructions and inserts the USB drive into the workstation responsible for the OT system. This workstation has access to SCADA systems (M2) and OpenPLC systems (M3).
 
 - Once the USB is inserted, the system reads the `PLC_Firmware_Update.exe` file.
+  
+  **Img**
 - The malware is executed, either manually or automatically (if autorun is configured).
 
 ### 5. Attacker Gains Access to the OT Environment
 
 Upon execution, the attacker’s malware:
 
-- Initiates a reverse shell or command-and-control (C2) connection to the attacker's machine (**M1**).
-- The attacker now has remote access to the OT environment, beginning with the compromised workstation.
+- Initiates a reverse shell or command-and-control (C2) connection to the attacker's machine.
 
+**Img**
+
+- The attacker now has remote access to the OT environment, beginning with the compromised workstation.
+- 
+**Img**
+  
 ## Next Steps
 Once the attacker has gained access to the OT system, the next phase is Execution of the malware on the compromised system.
 
