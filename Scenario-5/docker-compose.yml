@@ -1,36 +1,7 @@
 version: '3.9'
 
 services:
-  # M1 - The attacker
-  M1:
-    image: kalilinux/kali-rolling
-    container_name: attacker-M1
-    networks:
-      bridge_network:
-      network1:
-        ipv4_address: 192.168.51.10
 
-    ports:
-      - "8082:80"  # Port for SET interface or other tools
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2"
-          memory: "2048M"
-    entrypoint: |
-      sh -c "
-      apt-get update && apt-get install -y git curl wget python3-pip
-      apt install metasploit-framework
-      git clone https://github.com/trustedsec/social-engineer-toolkit.git /opt/set
-      cd /opt/set
-      pip3 install -r requirements.txt
-      python3 setup.py install
-      echo 'Attacker with SET and Metasploit ready. Use it for phishing scenarios.'
-      sleep infinity
-      "
 
   # M2 - SCADA system
   scadabr:
