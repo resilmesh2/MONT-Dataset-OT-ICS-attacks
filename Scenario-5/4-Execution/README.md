@@ -19,9 +19,10 @@ The malware on the USB device is designed to execute automatically. Common metho
 
 ### 2. Trigger the Malware Execution
 
-When the USB device is inserted into the compromised workstation (**M1**):
+When the USB device is inserted into the compromised workstation :
 
 - **Autorun Configuration**: If autorun is enabled, the malware may automatically execute upon USB insertion.
+- 
 - **Manual Execution**: If autorun is disabled, the user might need to manually run the executable (e.g., `PLC_Firmware_Update.exe`).
 
 ### 3. Validate Execution
@@ -35,7 +36,7 @@ Ensure the malware is running correctly by checking for:
 
 To check for running processes:
 ```
-ps aux | grep [malware_process_name]
+ps aux | grep [malware_process_name] PLC_Firmware_Update
 ```
 
 To monitor network connections:
