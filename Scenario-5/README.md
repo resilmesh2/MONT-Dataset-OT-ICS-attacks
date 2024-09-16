@@ -30,7 +30,7 @@ Docker Containers
    - **Networks:**
      - `bridge_network`
      - `network1` (IP: 192.168.51.10)
-   - **Ports:** 8082:8080
+   - **Ports:** 8082:80 
    - **Description:** M1 is used by the attacker to run Social-Engineer Toolkit (SET) for phishing and other attack activities.
 
 **M2 - SCADA System (ScadaBR)**
@@ -49,15 +49,6 @@ Docker Containers
      - `bridge_network`
      - `network2` (IP: 192.168.52.6)
    - **Ports:** 8080:8080
-
-**M4 - IT Workstation**
-   - **Role:** Responsible for the OT system and receives phishing emails from M1.
-   - **Image:** `ubuntu:latest`
-   - **Networks:**
-     - `bridge_network`
-     - `network1` (IP: 192.168.51.2)
-   - **Ports:** 8081:8080
-
 
 ## Accessing the Components
 
