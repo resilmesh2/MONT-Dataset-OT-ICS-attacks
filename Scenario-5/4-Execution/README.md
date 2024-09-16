@@ -38,13 +38,14 @@ To check for running processes:
 ```
 ps aux | grep [malware_process_name] PLC_Firmware_Update
 ```
+![](https://drive.google.com/uc?export=view&id=1DXymGX4TC6Hq0qUW-qdpU48OC02blxLt)
 
 To monitor network connections:
 
 ```
 netstat -an | grep [C2_server_ip]
 ```
-
+![](https://drive.google.com/uc?export=view&id=1EZaPNPCJwROyoa-b8MFW8sR1i8gPerwO)
 ### 5. Monitor and Analyze
 Monitor the system for:
 
