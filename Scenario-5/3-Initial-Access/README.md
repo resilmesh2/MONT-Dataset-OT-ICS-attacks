@@ -24,7 +24,6 @@ To enhance the credibility of the phishing attempt, the attacker can spoof the e
 
 - Use a fake email domain that looks similar to the real manufacturer's domain (e.g., `support@manufacturer-update.com` instead of `support@manufacturer.com`).
    
-   **Img**
 - Create professional-looking communication that instructs the target to perform the firmware update using the enclosed USB device.
 
 ### 3. Deliver the USB Device
@@ -40,7 +39,6 @@ The responsible person, believing the USB drive or download link to be legitimat
 
 - Once the USB is inserted, the system reads the `PLC_Firmware_Update.exe` file.
   
-  **Img**
 - The malware is executed, either manually or automatically (if autorun is configured).
 
 ### 5. Attacker Gains Access to the OT Environment
@@ -49,11 +47,10 @@ Upon execution, the attacker’s malware:
 
 - Initiates a reverse shell or command-and-control (C2) connection to the attacker's machine.
 
-**Img**
 
 - The attacker now has remote access to the OT environment, beginning with the compromised workstation.
-- 
-**Img**
+
+![](https://drive.google.com/uc?export=view&id=1sdt-z1I3P1AjoJnpeIBrIBQfXoRurdCe)
   
 ## Next Steps
 Once the attacker has gained access to the OT system, the next phase is Execution of the malware on the compromised system.
