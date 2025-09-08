@@ -32,17 +32,18 @@ sudo apt install software-properties-common
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 sudo apt install python3.8 python3.8-venv python3.8-dev python3.8-distutils
+```
 
 ### 2. Clone repository
 ```bash
 git clone https://github.com/resilmesh2/MONT-Dataset-OT-ICS-attacks
 cd MONT-Dataset-OT-ICS-attacks/NATS
-
+```
 ### 3. Setup Python virtual environment
 ```bash
 chmod +x setup_natsenv.sh
 ./setup_natsenv.sh
-
+```
 This will:
 
 Remove any old virtual environment natsenv.
@@ -59,16 +60,18 @@ Modify nats_config.conf.
 
 ```bash
 ./subscriber.sh
-
+```
 ### 2. Publisher (inside the Python virtual environment)
 
 ```bash
 ./publisher.sh --csv <link to online csv file or path to offline file>
+```
 
 For example: 
+
 ```bash
 ./publisher.sh --csv https://raw.githubusercontent.com/montimage-projects/OT-ICS-attacks/main/Scenario-2/1-Reconnaissance/normal_scan_features.csv
-
+```
 
 
 
