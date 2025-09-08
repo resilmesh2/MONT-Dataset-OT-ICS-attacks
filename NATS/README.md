@@ -70,8 +70,7 @@ Modify nats_config.conf.
 For example: 
 
 ```bash
-./publisher.sh --csv https://raw.githubusercontent.com/montimage-projects/OT-ICS-attacks/main/Scenario-2/1-Reconnaissance/normal_scan_features.csv
-```
+./publisher.sh "https://raw.githubusercontent.com/montimage-projects/OT-ICS-attacks/main/Scenario-2/1-Reconnaissance/normal_scan_features.csv"```
 
 
 
