@@ -11,7 +11,7 @@ rm -rf natsenv
 echo "Removed old natsenv if it existed."
 
 echo "=== Step 2: Create a new Python virtual environment ==="
-python3 -m venv natsenv
+python3.8 -m venv natsenv
 echo "Created new virtual environment in natsenv/"
 
 echo "=== Step 3: Activate the virtual environment ==="
