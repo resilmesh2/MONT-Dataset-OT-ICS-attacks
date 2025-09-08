@@ -59,11 +59,14 @@ Modify nats_config.conf.
 ### 1. Subscriber (inside the Python virtual environment)
 
 ```bash
+source natsenv/bin/activate
 ./subscriber.sh
 ```
-### 2. Publisher (inside the Python virtual environment)
+### 2. Publisher (inside the Python virtual environment, in another terminal)
 
 ```bash
+cd MONT-Dataset-OT-ICS-attacks/NATS
+source natsenv/bin/activate
 ./publisher.sh --csv <link to online csv file or path to offline file>
 ```
 
